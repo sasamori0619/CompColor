@@ -26,6 +26,33 @@ library(devtools)
 devtools::install_github("sasamori0619/CompColor")
 ```
 
+### Usage
+
+```r
+library(ggplot2)
+library(compcolor)
+
+ggplot(mpg, aes(x = class, fill = class)) +
+  geom_bar() +
+  scale_fill_comp()
+```
+<img width="972" height="522" alt="default" src="https://github.com/user-attachments/assets/fbd14c9e-1605-4d89-8f29-bb309f876c11" />
+
+```r
+ggplot(mpg, aes(x = class, color = class)) +
+  geom_bar() +
+  scale_fill_comp(div=4)
+```
+<img width="972" height="522" alt="div4" src="https://github.com/user-attachments/assets/fc40a5f5-f944-4971-b886-34611566a9a5" />
+
+```r
+ggplot(mpg, aes(x = class, color = class)) +
+  geom_bar() +
+  scale_fill_comp(start="#aadceb")
+```
+<img width="972" height="522" alt="start" src="https://github.com/user-attachments/assets/b2035b29-fb69-41df-8e4d-e29f7a4dc30d" />
+
+
 ---
 
 ## 日本語
@@ -51,3 +78,30 @@ devtools::install_github("sasamori0619/CompColor")
 library(devtools)
 devtools::install_github("sasamori0619/CompColor")
 ```
+
+### Usage
+
+```r
+library(ggplot2)
+library(compcolor)
+
+ggplot(mpg, aes(x = class, fill = class)) +
+  geom_bar() +
+  scale_fill_comp()
+```
+<img width="972" height="522" alt="default" src="https://github.com/user-attachments/assets/fbd14c9e-1605-4d89-8f29-bb309f876c11" />
+
+```r
+ggplot(mpg, aes(x = class, fill = class)) +
+  geom_bar() +
+  scale_fill_comp(div=4)
+```
+<img width="972" height="522" alt="div4" src="https://github.com/user-attachments/assets/fc40a5f5-f944-4971-b886-34611566a9a5" />
+
+```r
+ggplot(mpg, aes(x = class, fill = class, color = class)) +
+  geom_bar() +
+  scale_fill_comp(start="#aadceb") +
+  scale_color_comp(start=""
+```
+<img width="972" height="522" alt="start" src="https://github.com/user-attachments/assets/b2035b29-fb69-41df-8e4d-e29f7a4dc30d" />
