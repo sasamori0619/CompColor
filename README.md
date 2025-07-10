@@ -46,11 +46,12 @@ ggplot(mpg, aes(x = class, color = class)) +
 <img width="972" height="522" alt="div4" src="https://github.com/user-attachments/assets/fc40a5f5-f944-4971-b886-34611566a9a5" />
 
 ```r
-ggplot(mpg, aes(x = class, color = class)) +
+ggplot(mpg, aes(x = class, fill = class, color = class)) +
   geom_bar() +
-  scale_fill_comp(start="#aadceb")
+  scale_fill_comp(start="#aadceb") +
+  scale_color_comp(start="#ce3a62")
 ```
-<img width="972" height="522" alt="start" src="https://github.com/user-attachments/assets/b2035b29-fb69-41df-8e4d-e29f7a4dc30d" />
+<img width="972" height="429" alt="test" src="https://github.com/user-attachments/assets/bd7a8e34-2ff7-441e-9229-a74df0dd0f8a" />
 
 
 ---
@@ -102,6 +103,7 @@ ggplot(mpg, aes(x = class, fill = class)) +
 ggplot(mpg, aes(x = class, fill = class, color = class)) +
   geom_bar() +
   scale_fill_comp(start="#aadceb") +
-  scale_color_comp(start=""
+  scale_color_comp(start="#ce3a62")
 ```
+<img width="972" height="429" alt="test" src="https://github.com/user-attachments/assets/bd7a8e34-2ff7-441e-9229-a74df0dd0f8a" />
 <img width="972" height="522" alt="start" src="https://github.com/user-attachments/assets/b2035b29-fb69-41df-8e4d-e29f7a4dc30d" />
