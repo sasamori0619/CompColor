@@ -17,7 +17,7 @@ comp_palette <- function(n, start = NULL, div = 8) {
   if (!is.null(start)) {
     rgb_obj <- colorspace::hex2RGB(start)
     hcl_obj <- as(rgb_obj, "polarLUV")
-    hcl_col <- coords(hcl_obj)[1, ]
+    hcl_col <- hcl_obj@coords[1, ]
     h_start <- hcl_col["H"] %%360
     c_val <- hcl_col["C"]
     l_val <- hcl_col["L"]
