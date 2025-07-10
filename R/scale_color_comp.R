@@ -6,11 +6,11 @@
 #' @param l Lightness
 #' @param ... Other arguments to pass to discrete_scale
 #' @export
-scale_color_comp <- function(start_color = NULL, recycle = TRUE, c = 100, l = 65, ...) {
+scale_color_comp <- function(start = NULL, recycle = TRUE, c = 100, l = 65, ...) {
   ggplot2::discrete_scale(
     "colour",
     "comp",
-    palette = function(n) comp_palette(n, start_color = start_color, recycle = recycle, c = c, l = l),
+    palette = function(n) comp_palette(n, start = start, recycle = recycle, c = c, l = l),
     ...
   )
 }
