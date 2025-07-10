@@ -6,7 +6,7 @@
 #'
 #' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(n, start = NULL, div = 8) {
+comp_palette <- function(n, start = NULL, div = NULL) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("colorspace package is required.")
   }
@@ -27,7 +27,10 @@ comp_palette <- function(n, start = NULL, div = 8) {
   }
 
   # === Hue の分割 ===
-  #k <- if (!is.null(div)) div else 8
+  if (!is.null(div)) {
+    div <- 8
+  }
+  
   base_hues <- (h_start + seq(0, length.out = div, by = 360 / div)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
@@ -43,7 +46,11 @@ comp_palette <- function(n, start = NULL, div = 8) {
     idx <- idx[!is.na(idx)]
   }
 
-  ordered_base_hues <- base_hues[idx]
+  if (div == 1 ) {
+    ordered_base_hues <- base_hues[1]
+  } else {
+    ordered_base_hues <- base_hues[idx]
+  }
 
   palette <- as.vector(grDevices::hcl(h = ordered_base_hues, c = c_val, l = l_val))
   
