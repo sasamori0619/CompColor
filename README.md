@@ -7,7 +7,7 @@
 CompColor is an R package that automatically generates color palettes for categorical data, compatible with ggplot2.
 Instead of arranging colors by hue order, it improves visibility by alternating between perceptually distant hues.
 
-Note that CompColor is not optimized for color vision deficiency, so for basic visibility and accessibility, palettes such as those provided by RColorBrewer[[https://r-graph-gallery.com/38-rcolorbrewers-palettes.html]] may be more suitable.
+Note that CompColor is not optimized for color vision deficiency, so for basic visibility and accessibility, palettes such as those provided by [RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html) may be more suitable.
 
 However, CompColor is designed for use cases that require many distinct colors, and therefore it has no practical limit on the number of colors in a palette.
 Features
@@ -70,7 +70,7 @@ ggplot(mpg, aes(x = class, fill = class, color = class)) +
 **`CompColor`** は、ggplot2に対応したカテゴリ用カラーパレットを自動生成するRパッケージです。  
 色相順ではなく、**色相の離れた色を交互に配置することで見やすさを向上**させています。
 
-色覚多様性への配慮はされていないため、基本的な視認性はRColorBrewer[[https://r-graph-gallery.com/38-rcolorbrewers-palettes.html]]などほうが優れています。
+色覚多様性への配慮はされていないため、基本的な視認性は[RColorBrewer](https://r-graph-gallery.com/38-rcolorbrewers-palettes.html)などのほうが優れています。
 一方CompColorは多色のカラーパレットを運用する場合を想定して作成したパッケージであり、実質的な色数の制約がありません。
 
 ### 特徴
