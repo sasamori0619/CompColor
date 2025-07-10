@@ -9,7 +9,7 @@
 #' @export
 scale_color_comp <- function(start = NULL, recycle = TRUE, div = NULL, c_val = 100, l_val = 65, ...) {
   ggplot2::discrete_scale(
-    "fill", "comp",
+    "color", "comp",
     palette = function(n) comp_palette(n, start = start, recycle = recycle, div = div, c_val = c_val, l_val = l_val),
     ...
   )
