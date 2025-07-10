@@ -9,7 +9,7 @@
 #'
 #' @return Character vector of hex colors
 #' @export
-comp_palette <- function(n, c = 100, l = 65, start = NULL, recycle = TRUE, div = NULL) {
+comp_palette <- function(n, c_val = 100, l_val = 65, start = NULL, recycle = TRUE, div = NULL) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("Package 'colorspace' is required. Please install it.")
   }
@@ -29,8 +29,8 @@ comp_palette <- function(n, c = 100, l = 65, start = NULL, recycle = TRUE, div =
   split_n <- if (!is.null(div)) div / 2 else ceiling(n / 2)
 
   base_hues <- (h_start + seq(0, length.out = split_n, by = 360 / split_n)) %% 360 +10
-  base_colors <- grDevices::hcl(h = base_hues, c_val = c_val, l_val = l_val)
-  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c_val = c_val, l_val = l_val)
+  base_colors <- grDevices::hcl(h = base_hues, c = c_val, l = l_val)
+  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c = c_val, l = l_val)
 
   # ===== 補色交互で統合し、必要数だけ抽出 =====
   palette_raw <- as.vector(rbind(base_colors, comp_colors))
