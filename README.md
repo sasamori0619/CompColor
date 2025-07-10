@@ -2,7 +2,7 @@
 
 ## English
 
-###Overview
+### Overview
 
 CompColor is an R package that automatically generates color palettes for categorical data, compatible with ggplot2.
 Instead of arranging colors by hue order, it improves visibility by alternating between perceptually distant hues.
@@ -22,7 +22,7 @@ Features
 
 ---
 
-###Installation
+### Installation
 
 ```r
 # Install directly from GitHub
