@@ -27,7 +27,7 @@ comp_palette <- function(n, start = NULL, div = 8) {
   }
 
   # === Hue の分割 ===  
-  if (is.null(div)) div <- 8
+  div <- ifelse(is.null(div), 8, div)
   base_hues <- (h_start + seq(0, length.out = div, by = 360 / div)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
