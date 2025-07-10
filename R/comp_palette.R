@@ -12,7 +12,6 @@ comp_palette <- function(n, start = NULL, div = 8) {
   }
 
   if (n < 1) stop("n must be >= 1")
-  if (div < 1 || div %% 1 != 0) stop("div must be an integer >= 1")
 
   # === 色特性の初期化 ===
   if (!is.null(start)) {
@@ -28,7 +27,7 @@ comp_palette <- function(n, start = NULL, div = 8) {
   }
 
   # === Hue の分割 ===
-  k <- if (!is.null(div)) div else 8
+  #k <- if (!is.null(div)) div else 8
   base_hues <- (h_start + seq(0, length.out = k, by = 360 / k)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
