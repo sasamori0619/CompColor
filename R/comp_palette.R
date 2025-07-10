@@ -15,11 +15,12 @@ comp_palette <- function(n, start = NULL, div = 8) {
 
   # === 色特性の初期化 ===
   if (!is.null(start)) {
-    rgb_val <- grDevices::col2rgb(start) / 255
-    hcl_col <- as(colorspace::RGB(rgb_val[1], rgb_val[2], rgb_val[3]), "polarLUV")
-    h_start <- hcl_col@coords[3] %% 360
-    c_val <- sqrt(sum(hcl_col@coords[2:3]^2))
-    l_val <- hcl_col@coords[1]
+    rgb_obj <- colorspace::hex2RGB(start)
+    hcl_obj <- as(rgb_obj, "polarLUV")
+    hcl_col <- coords(hcl_obj)[1, ]
+    h_start <- hcl_col["H"] %%360
+    c_val <- hcl_col["C"]
+    l_val <- hcl_col["L"]
   } else {
     h_start <- 15
     c_val <- 100
