@@ -1,15 +1,17 @@
 #' Generate complementary palette with div-based hue division and custom ordering
 #'
+#' @param n Number of colors required (must be >= 1)
 #' @param start Optional HEX color. If NULL, default color (Hue=15, C=100, L=65) used.
 #' @param div Number of hue divisions (default = 8). Must be >= 1.
 #'
 #' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(start = NULL, div = 8) {
+comp_palette <- function(n, start = NULL, div = 8) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("colorspace package is required.")
   }
 
+  if (n < 1) stop("n must be >= 1")
   if (div < 1 || div %% 1 != 0) stop("div must be an integer >= 1")
 
   # === 色特性の初期化 ===
@@ -46,5 +48,5 @@ comp_palette <- function(start = NULL, div = 8) {
 
   palette <- as.vector(grDevices::hcl(h = ordered_base_hues, c = c_val, l = l_val))
   
-  return(palette)
+  return(rep(palette_raw, length.out = n))
 }
