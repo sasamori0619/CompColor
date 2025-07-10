@@ -1,7 +1,14 @@
-usethis::use_description(fields = list(
-  Title = "Complementary Color Palette for ggplot2",
-  Description = "Provides a color palette that alternates between hues and their complements, suitable for categorical plots in ggplot2.",
-  License = "MIT",
-  Encoding = "UTF-8",
-  LazyData = "true"
-))
+Package: compcolor
+Type: Package
+Title: Complementary Color Palette for ggplot2
+Version: 0.1.0
+Author: Your Name
+Maintainer: Your Name <your.email@example.com>
+Description: Provides complementary color palettes for ggplot2 that alternate between hues and their complements.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    ggplot2,
+    colorspace
+RoxygenNote: 7.3.1
