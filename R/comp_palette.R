@@ -19,8 +19,8 @@ comp_palette <- function(n, c = 100, l = 65, start = NULL, recycle = TRUE, div =
     rgb_val <- grDevices::col2rgb(start) / 255
     hcl_col <- as(colorspace::RGB(rgb_val[1], rgb_val[2], rgb_val[3]), "polarLUV")
     h_start <- hcl_col@coords[3] %% 360
-    l <- hcl_col@coords[1]
-    c <- sqrt(sum(hcl_col@coords[2:3]^2))  # chroma: sqrt(u^2 + v^2)
+    l_val <- hcl_col@coords[1]
+    c_val <- sqrt(sum(hcl_col@coords[2:3]^2))  # chroma: sqrt(u^2 + v^2)
   } else {
     h_start <- 15  # default hue
   }
@@ -28,9 +28,9 @@ comp_palette <- function(n, c = 100, l = 65, start = NULL, recycle = TRUE, div =
   # ===== 分割数の決定 =====
   split_n <- if (!is.null(div)) div / 2 else ceiling(n / 2)
 
-  base_hues <- (h_start + seq(0, length.out = split_n, by = 360 / split_n)) %% 360
-  base_colors <- grDevices::hcl(h = base_hues, c = c, l = l)
-  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c = c, l = l)
+  base_hues <- (h_start + seq(0, length.out = split_n, by = 360 / split_n)) %% 360 +10
+  base_colors <- grDevices::hcl(h = base_hues, c_val = c_val, l_val = l_val)
+  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c_val = c_val, l_val = l_val)
 
   # ===== 補色交互で統合し、必要数だけ抽出 =====
   palette_raw <- as.vector(rbind(base_colors, comp_colors))
