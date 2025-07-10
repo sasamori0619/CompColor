@@ -26,7 +26,7 @@ comp_palette <- function(n, c = 100, l = 65, start = NULL, recycle = TRUE, div =
   }
 
   # ===== 分割数の決定 =====
-  split_n <- if (!is.null(div)) div else ceiling(n / 2)
+  split_n <- if (!is.null(div)) div / 2 else ceiling(n / 2)
 
   base_hues <- (h_start + seq(0, length.out = split_n, by = 360 / split_n)) %% 360
   base_colors <- grDevices::hcl(h = base_hues, c = c, l = l)
