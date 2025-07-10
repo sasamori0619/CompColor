@@ -28,6 +28,8 @@ devtools::install_github("sasamori0619/CompColor")
 
 ### Usage
 
+Default.
+
 ```r
 library(ggplot2)
 library(compcolor)
@@ -36,14 +38,20 @@ ggplot(mpg, aes(x = class, fill = class)) +
   geom_bar() +
   scale_fill_comp()
 ```
+
 <img width="972" height="522" alt="default" src="https://github.com/user-attachments/assets/fbd14c9e-1605-4d89-8f29-bb309f876c11" />
+
+Specify the number of hue ring divisions and recycle the color pallet.
 
 ```r
 ggplot(mpg, aes(x = class, color = class)) +
   geom_bar() +
   scale_fill_comp(div=4)
 ```
+
 <img width="972" height="522" alt="div4" src="https://github.com/user-attachments/assets/fc40a5f5-f944-4971-b886-34611566a9a5" />
+
+Specify the starting color of pallet by color cord.
 
 ```r
 ggplot(mpg, aes(x = class, fill = class, color = class)) +
@@ -82,6 +90,8 @@ devtools::install_github("sasamori0619/CompColor")
 
 ### Usage
 
+デフォルト
+
 ```r
 library(ggplot2)
 library(compcolor)
@@ -90,14 +100,20 @@ ggplot(mpg, aes(x = class, fill = class)) +
   geom_bar() +
   scale_fill_comp()
 ```
+
 <img width="972" height="522" alt="default" src="https://github.com/user-attachments/assets/fbd14c9e-1605-4d89-8f29-bb309f876c11" />
+
+色相環の分割数を指定し、カラーパレットを繰り返し使用
 
 ```r
 ggplot(mpg, aes(x = class, fill = class)) +
   geom_bar() +
   scale_fill_comp(div=4)
 ```
+
 <img width="972" height="522" alt="div4" src="https://github.com/user-attachments/assets/fc40a5f5-f944-4971-b886-34611566a9a5" />
+
+カラーパレットのはじめの色をカラーコードで指定
 
 ```r
 ggplot(mpg, aes(x = class, fill = class, color = class)) +
