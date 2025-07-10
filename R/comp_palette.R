@@ -6,7 +6,7 @@
 #'
 #' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(n, start = NULL, div = NULL) {
+comp_palette <- function(n, start = NULL, div = 8) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("colorspace package is required.")
   }
@@ -26,11 +26,7 @@ comp_palette <- function(n, start = NULL, div = NULL) {
     l_val <- 65
   }
 
-  # === Hue の分割 ===
-  if (!is.null(div)) {
-    div <- 8
-  }
-  
+  # === Hue の分割 ===  
   base_hues <- (h_start + seq(0, length.out = div, by = 360 / div)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
