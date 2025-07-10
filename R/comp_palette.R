@@ -48,5 +48,5 @@ comp_palette <- function(n, start = NULL, div = 8) {
 
   palette <- as.vector(grDevices::hcl(h = ordered_base_hues, c = c_val, l = l_val))
   
-  return(rep(palette_raw, length.out = n))
+  return(rep(palette, length.out = n))
 }
