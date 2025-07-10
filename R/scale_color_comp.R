@@ -1,16 +1,16 @@
-#' ggplot2 color scale with customizable complementary palette
+#' ggplot2 color scale with complementary palette
 #'
-#' @param start_color Optional HEX color for starting hue
-#' @param recycle Whether to recycle if needed
-#' @param c Chroma
-#' @param l Lightness
-#' @param ... Other arguments to pass to discrete_scale
+#' @param start Optional HEX color
+#' @param recycle Whether to recycle colors if needed
+#' @param div Number of hue divisions (overrides n-based split)
+#' @param c Chroma (used only if start_color is NULL)
+#' @param l Lightness (used only if start_color is NULL)
+#' @param ... Passed to scale_fill_manual
 #' @export
-scale_color_comp <- function(start = NULL, recycle = TRUE, c = 100, l = 65, ...) {
+scale_color_comp <- function(start = NULL, recycle = TRUE, div = NULL, c = 100, l = 65, ...) {
   ggplot2::discrete_scale(
-    "colour",
-    "comp",
-    palette = function(n) comp_palette(n, start = start, recycle = recycle, c = c, l = l),
+    "fill", "comp",
+    palette = function(n) comp_palette(n, start = start, recycle = recycle, div = div, c = c, l = l),
     ...
   )
 }
