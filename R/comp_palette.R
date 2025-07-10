@@ -29,8 +29,8 @@ comp_palette <- function(n, c = 100, l = 65, start_color = NULL, recycle = TRUE)
 
   half_n <- ceiling(n / 2)
   base_hues <- (start_hue + seq(0, length.out = half_n, by = 360 / half_n)) %% 360
-  base_colors <- colorspace::hcl(h = base_hues, c = c, l = l)
-  comp_colors <- colorspace::hcl(h = (base_hues + 180) %% 360, c = c, l = l)
+  base_colors <- grDevices::hcl(h = base_hues, c = c, l = l)
+  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c = c, l = l)
 
   palette_raw <- as.vector(rbind(base_colors, comp_colors))
   if (recycle && length(palette_raw) < n) {
