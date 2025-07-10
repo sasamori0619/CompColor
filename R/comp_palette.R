@@ -1,38 +1,41 @@
-#' Generate complementary color palette with optional start and recycling
-#'
-#' This function generates a palette that alternates between colors and their complements.
+#' Generate complementary color palette with optional start color, recycling, and division
 #'
 #' @param n Number of colors to generate
-#' @param c Chroma (default 100)
-#' @param l Lightness (default 65)
-#' @param start_color Optional HEX color code (e.g., "#FF0000") to set as the starting hue
-#' @param recycle Whether to recycle the color pattern if n > generated palette (default TRUE)
+#' @param c Chroma (color intensity); ignored if start_color is provided
+#' @param l Lightness; ignored if start_color is provided
+#' @param start_color Optional HEX color code (e.g., "#FF0000") to set hue/chroma/lightness
+#' @param recycle Logical; whether to recycle colors if more are needed (default TRUE)
+#' @param div Optional: number of hue divisions (overrides automatic n-based spacing)
 #'
-#' @return A character vector of color hex codes
+#' @return Character vector of hex colors
 #' @export
-#' @examples
-#' comp_palette(8, start_color = "#FF0000", recycle = TRUE)
-comp_palette <- function(n, c = 100, l = 65, start_color = NULL, recycle = TRUE) {
+comp_palette <- function(n, c = 100, l = 65, start_color = NULL, recycle = TRUE, div = NULL) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("Package 'colorspace' is required. Please install it.")
   }
 
-  # Determine starting hue
-  start_hue <- if (!is.null(start_color)) {
+  # ===== 色相・彩度・明度の初期値設定 =====
+  if (!is.null(start_color)) {
     rgb_val <- grDevices::col2rgb(start_color) / 255
     hcl_col <- as(colorspace::RGB(rgb_val[1], rgb_val[2], rgb_val[3]), "polarLUV")
-    h <- hcl_col@coords[3]
-    h %% 360
+    h_start <- hcl_col@coords[3] %% 360
+    l <- hcl_col@coords[1]
+    c <- sqrt(sum(hcl_col@coords[2:3]^2))  # chroma: sqrt(u^2 + v^2)
   } else {
-    15
+    h_start <- 15  # default hue
   }
 
-  half_n <- ceiling(n / 2)
-  base_hues <- (start_hue + seq(0, length.out = half_n, by = 360 / half_n)) %% 360
+  # ===== 分割数の決定 =====
+  split_n <- if (!is.null(div)) div else ceiling(n / 2)
+
+  base_hues <- (h_start + seq(0, length.out = split_n, by = 360 / split_n)) %% 360
   base_colors <- grDevices::hcl(h = base_hues, c = c, l = l)
   comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c = c, l = l)
 
+  # ===== 補色交互で統合し、必要数だけ抽出 =====
   palette_raw <- as.vector(rbind(base_colors, comp_colors))
+
+  # ===== リサイクル対応 =====
   if (recycle && length(palette_raw) < n) {
     palette <- rep(palette_raw, length.out = n)
   } else {
