@@ -1,46 +1,50 @@
-#' Generate complementary color palette with optional start color, recycling, and division
+#' Generate complementary palette with div-based hue division and custom ordering
 #'
-#' @param n Number of colors to generate
-#' @param c Chroma (color intensity); ignored if start is provided
-#' @param l Lightness; ignored if start is provided
-#' @param start Optional HEX color code (e.g., "#FF0000") to set hue/chroma/lightness
-#' @param recycle Logical; whether to recycle colors if more are needed (default TRUE)
-#' @param div Optional: number of hue divisions (overrides automatic n-based spacing)
+#' @param start Optional HEX color. If NULL, default color (Hue=15, C=100, L=65) used.
+#' @param div Number of hue divisions (default = 8). Must be >= 1.
 #'
-#' @return Character vector of hex colors
+#' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(n, c_val = 100, l_val = 65, start = NULL, recycle = TRUE, div = NULL) {
+comp_palette <- function(start = NULL, div = 8) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
-    stop("Package 'colorspace' is required. Please install it.")
+    stop("colorspace package is required.")
   }
 
-  # ===== 色相・彩度・明度の初期値設定 =====
+  if (div < 1 || div %% 1 != 0) stop("div must be an integer >= 1")
+
+  # === 色特性の初期化 ===
   if (!is.null(start)) {
     rgb_val <- grDevices::col2rgb(start) / 255
     hcl_col <- as(colorspace::RGB(rgb_val[1], rgb_val[2], rgb_val[3]), "polarLUV")
     h_start <- hcl_col@coords[3] %% 360
+    c_val <- sqrt(sum(hcl_col@coords[2:3]^2))
     l_val <- hcl_col@coords[1]
-    c_val <- sqrt(sum(hcl_col@coords[2:3]^2))  # chroma: sqrt(u^2 + v^2)
   } else {
-    h_start <- 15  # default hue
+    h_start <- 15
+    c_val <- 100
+    l_val <- 65
   }
 
-  # ===== 分割数の決定 =====
-  split_n <- if (!is.null(div)) div / 2 else ceiling(n / 2)
+  # === Hue の分割 ===
+  k <- div
+  base_hues <- (h_start + seq(0, length.out = k, by = 360 / k)) %% 360
 
-  base_hues <- (h_start + seq(0, length.out = split_n, by = 360*1.1 / split_n)) %% 360
-  base_colors <- grDevices::hcl(h = base_hues, c = c_val, l = l_val)
-  comp_colors <- grDevices::hcl(h = (base_hues + 180) %% 360, c = c_val, l = l_val)
-
-  # ===== 補色交互で統合し、必要数だけ抽出 =====
-  palette_raw <- as.vector(rbind(base_colors, comp_colors))
-
-  # ===== リサイクル対応 =====
-  if (recycle && length(palette_raw) < n) {
-    palette <- rep(palette_raw, length.out = n)
+  # === インデックスの並べ替え（指定の順序）===
+  if (div %% 2 == 1) {
+    # 奇数：1, mid+1, 2, mid+2, ...
+    mid <- floor(div / 2)
+    idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
+    idx <- idx[!is.na(idx)]
   } else {
-    palette <- palette_raw[1:n]
+    # 偶数：1, div/2+1, 2, div/2+2, ...
+    half <- div / 2
+    idx <- as.vector(rbind(1:half, (half + 1):div))
+    idx <- idx[!is.na(idx)]
   }
 
+  ordered_base_hues <- base_hues[idx]
+
+  palette <- as.vector(grDevices::hcl(h = ordered_base_hues, c = c_val, l = l_val))
+  
   return(palette)
 }
