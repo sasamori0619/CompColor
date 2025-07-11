@@ -44,7 +44,7 @@ comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
   } else {
     # 偶数：1, div/2+1, 2, div/2+2, ...
     half <- div / 2
-    idx <- as.vector(1:half, (half + 1):div
+    idx <- as.vector(rbind(1:half, (half + 1):div))
   }
   idx <- idx[!is.na(idx)]
 
