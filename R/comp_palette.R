@@ -6,7 +6,7 @@
 #'
 #' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
+comp_palette <- function(n, start = NULL, div = 8, skip = NULL, idx = NULL) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("colorspace package is required.")
   }
@@ -32,20 +32,25 @@ comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
   base_hues <- (h_start + seq(0, length.out = div, by = 360 / div)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
-  if (!is.null(skip)) {
-    if (!(skip %% 1 == 0 && skip >= 1)) stop("skip must be an integer and >= 1")
-    idx_list <- lapply(1:skip, function(i) seq(i, div, by = skip))
-    idx <- unlist(idx_list)
-  } else if (div %% 2 == 1) {
-    # 奇数：1, mid+1, 2, mid+2, ...
-    mid <- floor(div / 2)
-    if (is.null(skip)) {
-      idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
-    }
+  if (!is.null(idx)){
+    if (!is.vector(idx)) stop("'idx' should be defined as a vector using the c() function.")
+    idx <- idx
   } else {
-    # 偶数：1, div/2+1, 2, div/2+2, ...
-    half <- div / 2
-    idx <- as.vector(rbind(1:half, (half + 1):div))
+      if (!is.null(skip)) {
+      if (!(skip %% 1 == 0 && skip >= 1)) stop("skip must be an integer and >= 1")
+      idx_list <- lapply(1:skip, function(i) seq(i, div, by = skip))
+      idx <- unlist(idx_list)
+    } else if (div %% 2 == 1) {
+      # 奇数：1, mid+1, 2, mid+2, ...
+      mid <- floor(div / 2)
+      if (is.null(skip)) {
+        idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
+      }
+    } else {
+      # 偶数：1, div/2+1, 2, div/2+2, ...
+      half <- div / 2
+      idx <- as.vector(rbind(1:half, (half + 1):div))
+    }
   }
   idx <- idx[!is.na(idx)]
 
