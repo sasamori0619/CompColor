@@ -40,14 +40,13 @@ comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
     mid <- floor(div / 2)
     if (is.null(skip)) {
       idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
-      idx <- c(1, idx[!is.na(idx)])
     }
   } else {
     # 偶数：1, div/2+1, 2, div/2+2, ...
     half <- div / 2
-    idx <- as.vector(1:half, (half + 1):div)
-    idx <- idx[!is.na(idx)]
+    idx <- as.vector(1:half, (half + 1):div
   }
+  idx <- idx[!is.na(idx)]
 
   if (div == 1 ) {
     ordered_base_hues <- base_hues[1]
