@@ -6,7 +6,7 @@
 #'
 #' @return Character vector of length div * 2 containing alternating base and complementary colors.
 #' @export
-comp_palette <- function(n, start = NULL, div = 8) {
+comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
   if (!requireNamespace("colorspace", quietly = TRUE)) {
     stop("colorspace package is required.")
   }
