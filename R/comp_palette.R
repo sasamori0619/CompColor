@@ -33,7 +33,7 @@ comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
 
   # === インデックスの並べ替え（指定の順序）===
   if (!is.null(skip)) {
-    if (!is.integer(skip) | skip < 1) stop("skip must be integar & >= 1")
+    if (!is.integer(skip) | skip >= 1) stop("skip must be integar & >= 1")
     idx <- seq(1, div, by = skip)
   } else if (div %% 2 == 1) {
     # 奇数：1, mid+1, 2, mid+2, ...
