@@ -34,12 +34,8 @@ comp_palette <- function(n, start = NULL, div = 8, skip = NULL) {
   # === インデックスの並べ替え（指定の順序）===
   if (!is.null(skip)) {
     if (!(skip %% 1 == 0 && skip >= 1)) stop("skip must be an integer and >= 1")
-    cols <- lapply(1:skip, function(i) seq(i, div, by = skip))
-    mat <- do.call(rbind, lapply(cols, function(x) {
-      length(x) <- max(lengths(cols))
-      return(x)
-    })) 
-    idx <- as.vector(mat)
+    idx_list <- lapply(1:skip, function(i) seq(i, div, by = skip))
+    idx <- unlist(idx_list)
   } else if (div %% 2 == 1) {
     # 奇数：1, mid+1, 2, mid+2, ...
     mid <- floor(div / 2)
