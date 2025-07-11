@@ -101,6 +101,24 @@ ggplot(df, aes(x = x, y = y, fill = fill)) +
 
 <img width="972" height="429" alt="skip5" src="https://github.com/user-attachments/assets/72629fda-9549-470d-8d02-707192e5fd3d" />
 
+By setting `idx` as a vector, specify the order in which colors are retrieved from the color palette.
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12)  # グループ化のため factor にする
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, idx=c(1,3,5)) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="idx3" src="https://github.com/user-attachments/assets/3f547ff8-76c3-434a-9c79-dd67d1aba9c6" />
 
 ---
 
@@ -163,7 +181,7 @@ ggplot(mpg, aes(x = class, fill = class, color = class)) +
 ```
 <img width="972" height="429" alt="test" src="https://github.com/user-attachments/assets/bd7a8e34-2ff7-441e-9229-a74df0dd0f8a" />
 
-skip = INT (>=1) を設定した場合、カラーパレットをskipごとに取得して使用する
+`skip = INT (>=1)` を設定した場合、カラーパレットをskipごとに取得して使用する
 
 skip=2の場合
 
@@ -203,3 +221,21 @@ ggplot(df, aes(x = x, y = y, fill = fill)) +
 
 <img width="972" height="429" alt="skip5" src="https://github.com/user-attachments/assets/72629fda-9549-470d-8d02-707192e5fd3d" />
 
+`idx = VECTOR` を設定することでカラーパレットから取得する色の順序を指定することができる
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12)  # グループ化のため factor にする
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, idx=c(1,3,5)) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="idx3" src="https://github.com/user-attachments/assets/3f547ff8-76c3-434a-9c79-dd67d1aba9c6" />
