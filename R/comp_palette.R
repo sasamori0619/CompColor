@@ -32,15 +32,20 @@ comp_palette <- function(n, start = NULL, div = 8) {
   base_hues <- (h_start + seq(0, length.out = div, by = 360 / div)) %% 360
 
   # === インデックスの並べ替え（指定の順序）===
-  if (div %% 2 == 1) {
+  if (!is.null(skip)) {
+    if (!is.integer(skip) | skip < 1) stop("skip must be integar & >= 1")
+    idx <- seq(1, div, by = skip)
+  } else if (div %% 2 == 1) {
     # 奇数：1, mid+1, 2, mid+2, ...
     mid <- floor(div / 2)
-    idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
-    idx <- idx[!is.na(idx)]
+    if (is.null(skip)) {
+      idx <- as.vector(rbind(1:mid, (mid + 1 + 1):div))
+      idx <- c(1, idx[!is.na(idx)])
+    }
   } else {
     # 偶数：1, div/2+1, 2, div/2+2, ...
     half <- div / 2
-    idx <- as.vector(rbind(1:half, (half + 1):div))
+    idx <- as.vector(1:half, (half + 1):div)
     idx <- idx[!is.na(idx)]
   }
 
