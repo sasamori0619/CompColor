@@ -61,6 +61,46 @@ ggplot(mpg, aes(x = class, fill = class, color = class)) +
 ```
 <img width="972" height="429" alt="test" src="https://github.com/user-attachments/assets/bd7a8e34-2ff7-441e-9229-a74df0dd0f8a" />
 
+When the value is defined as `skip = INT (≥ 1)`, the color palette is sampled at intervals of `skip` and used accordingly.
+
+skip=2
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12) 
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, skip=2) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="skipr" src="https://github.com/user-attachments/assets/558625b7-a1a7-4e0e-a630-7d563e421bb5" />
+
+skip=5
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12) 
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, skip=5) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="skip5" src="https://github.com/user-attachments/assets/72629fda-9549-470d-8d02-707192e5fd3d" />
+
 
 ---
 
@@ -122,4 +162,44 @@ ggplot(mpg, aes(x = class, fill = class, color = class)) +
   scale_color_comp(start="#ce3a62")
 ```
 <img width="972" height="429" alt="test" src="https://github.com/user-attachments/assets/bd7a8e34-2ff7-441e-9229-a74df0dd0f8a" />
+
+skip = INT (>=1) を設定した場合、カラーパレットをskipごとに取得して使用する
+
+skip=2の場合
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12) 
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, skip=2) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="skipr" src="https://github.com/user-attachments/assets/558625b7-a1a7-4e0e-a630-7d563e421bb5" />
+
+skip=5の場合
+
+```r
+df <- data.frame(
+  x = 1:12,
+  y = 1,
+  fill = factor(1:12) 
+)
+
+ggplot(df, aes(x = x, y = y, fill = fill)) +
+  geom_tile(color = "black") +
+  scale_fill_comp(div = 12, skip=5) +
+  coord_fixed(ratio = 1) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<img width="972" height="429" alt="skip5" src="https://github.com/user-attachments/assets/72629fda-9549-470d-8d02-707192e5fd3d" />
 
